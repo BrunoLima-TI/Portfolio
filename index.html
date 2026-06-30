@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bruno — full stack developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1417;
+    --panel: #161D22;
+    --panel-2: #1C242A;
+    --line: #2A343B;
+    --text: #E6E9EA;
+    --muted: #8B98A1;
+    --amber: #E2A33D;
+    --teal: #4FBFA8;
+    --teal-dim: #2C5F54;
+    --red: #D9685A;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* background grid texture */
+  .bg-grid{
+    position:fixed; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:48px 48px;
+    opacity:0.18;
+  }
+
+  header{
+    position:sticky; top:0; z-index:10;
+    background:rgba(15,20,23,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 28px; max-width:1080px; margin:0 auto;
+  }
+  .brand{font-family:'JetBrains Mono', monospace; font-weight:700; font-size:15px; letter-spacing:0.02em;}
+  .brand span{color:var(--amber);}
+  .navlinks{display:flex; gap:28px; font-size:14px; color:var(--muted);}
+  .navlinks a{text-decoration:none; transition:color .15s;}
+  .navlinks a:hover{color:var(--text);}
+
+  /* HERO */
+  .hero{
+    padding:90px 0 70px;
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--teal);
+    display:flex; align-items:center; gap:8px; margin-bottom:18px; letter-spacing:0.04em;
+  }
+  .dot{width:7px; height:7px; border-radius:50%; background:var(--teal); box-shadow:0 0 0 0 rgba(79,191,168,0.6); animation:pulse 2s infinite;}
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(79,191,168,0.45);}
+    70%{box-shadow:0 0 0 6px rgba(79,191,168,0);}
+    100%{box-shadow:0 0 0 0 rgba(79,191,168,0);}
+  }
+  h1{
+    font-size:42px; font-weight:600; line-height:1.15; letter-spacing:-0.01em;
+    margin-bottom:18px;
+  }
+  h1 .accent{color:var(--amber);}
+  .lead{color:var(--muted); font-size:16px; max-width:480px; margin-bottom:28px;}
+  .cta-row{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:'JetBrains Mono', monospace; font-size:13px;
+    padding:11px 18px; border-radius:6px; text-decoration:none;
+    border:1px solid var(--line); transition:all .15s; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary{background:var(--amber); color:#1A1304; border-color:var(--amber); font-weight:700;}
+  .btn-primary:hover{background:#EEB456;}
+  .btn-ghost{color:var(--text);}
+  .btn-ghost:hover{border-color:var(--teal); color:var(--teal);}
+
+  /* status panel */
+  .status-panel{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    overflow:hidden;
+  }
+  .status-head{
+    display:flex; align-items:center; gap:8px; padding:12px 16px;
+    border-bottom:1px solid var(--line); font-family:'JetBrains Mono', monospace;
+    font-size:12px; color:var(--muted);
+  }
+  .status-head .traffic{display:flex; gap:6px;}
+  .traffic span{width:9px; height:9px; border-radius:50%; display:block;}
+  .status-body{padding:6px 0;}
+  .svc-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:11px 16px; font-family:'JetBrains Mono', monospace; font-size:12.5px;
+    border-bottom:1px solid var(--panel-2);
+  }
+  .svc-row:last-child{border-bottom:none;}
+  .svc-name{display:flex; align-items:center; gap:10px; color:var(--text);}
+  .svc-dot{width:7px; height:7px; border-radius:50%; background:var(--teal); flex-shrink:0;}
+  .svc-meta{color:var(--muted); font-size:11.5px;}
+
+  section{padding:64px 0; border-top:1px solid var(--line);}
+  .sec-label{
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--amber);
+    letter-spacing:0.06em; margin-bottom:8px;
+  }
+  .sec-title{font-size:26px; font-weight:600; margin-bottom:36px;}
+
+  /* stack grid */
+  .stack-grid{display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;}
+  .stack-item{
+    background:var(--panel); border:1px solid var(--line); border-radius:8px;
+    padding:16px 14px; text-align:left;
+  }
+  .stack-item .lvl{
+    height:3px; background:var(--panel-2); border-radius:2px; margin-top:10px; overflow:hidden;
+  }
+  .stack-item .lvl-fill{height:100%; background:var(--teal); border-radius:2px;}
+  .stack-item .name{font-size:14px; font-weight:500;}
+  .stack-item .cat{font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em; margin-top:2px; display:block;}
+
+  /* projects */
+  .proj-list{display:flex; flex-direction:column; gap:1px; border:1px solid var(--line); border-radius:8px; overflow:hidden;}
+  .proj{
+    background:var(--panel); padding:24px 26px; display:grid; grid-template-columns:140px 1fr auto; gap:24px; align-items:start;
+    border-bottom:1px solid var(--line);
+  }
+  .proj:last-child{border-bottom:none;}
+  .proj-tag{font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--teal); padding-top:3px;}
+  .proj-tag.amber{color:var(--amber);}
+  .proj h3{font-size:17px; font-weight:600; margin-bottom:6px;}
+  .proj p{color:var(--muted); font-size:14px; max-width:520px;}
+  .proj-stack{display:flex; gap:6px; flex-wrap:wrap; margin-top:12px;}
+  .chip{
+    font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--muted);
+    border:1px solid var(--line); border-radius:4px; padding:3px 8px;
+  }
+  .proj-status{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--teal);
+    display:flex; align-items:center; gap:6px; white-space:nowrap;
+  }
+  .proj-status.dev{color:var(--amber);}
+  .proj-status{text-decoration:none;}
+  .proj-status{justify-content:flex-end;}
+  .proj > div:last-child{display:flex; flex-direction:column; align-items:flex-end; gap:8px;}
+  .proj-link{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--teal);
+    text-decoration:none; white-space:nowrap;
+  }
+  .proj-link:hover{color:var(--amber);}
+  .proj-status::before{content:''; width:6px; height:6px; border-radius:50%; background:currentColor;}
+
+  footer{padding:60px 0 50px;}
+  .contact-box{
+    background:var(--panel); border:1px solid var(--line); border-radius:10px;
+    padding:40px; text-align:center;
+  }
+  .contact-box h2{font-size:24px; margin-bottom:10px;}
+  .contact-box p{color:var(--muted); font-size:15px; margin-bottom:26px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .foot-bottom{
+    margin-top:36px; display:flex; justify-content:space-between; font-size:12px; color:var(--muted);
+    font-family:'JetBrains Mono', monospace; flex-wrap:wrap; gap:10px;
+  }
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;}
+    .stack-grid{grid-template-columns:repeat(2,1fr);}
+    .proj{grid-template-columns:1fr; gap:10px;}
+    .proj-status{justify-content:flex-start;}
+    h1{font-size:32px;}
+    .navlinks{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<header>
+  <nav>
+    <div class="brand">bruno<span>@</span>dev</div>
+    <div class="navlinks">
+      <a href="#stack">stack</a>
+      <a href="#projetos">projetos</a>
+      <a href="#contato">contato</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:none;">
+    <div>
+      <div class="eyebrow"><span class="dot"></span>disponível para novos projetos</div>
+      <h1>Construo sistemas que <span class="accent">ficam de pé</span> em produção.</h1>
+      <p class="lead">Desenvolvedor full stack e estudante de Sistemas de Informação. Trabalho com aplicações web, integrações e infraestrutura — do front-end ao Docker que mantém tudo rodando.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#projetos">ver projetos →</a>
+        <a class="btn btn-ghost" href="#contato">falar comigo</a>
+      </div>
+    </div>
+
+    <div class="status-panel">
+      <div class="status-head">
+        <div class="traffic"><span style="background:var(--red)"></span><span style="background:var(--amber)"></span><span style="background:var(--teal)"></span></div>
+        <span>stack — status</span>
+      </div>
+      <div class="status-body">
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>PHP / Laravel</span><span class="svc-meta">backend</span></div>
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>C# / .NET</span><span class="svc-meta">backend</span></div>
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>Node.js / FastAPI</span><span class="svc-meta">backend</span></div>
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>React / Next.js / Angular</span><span class="svc-meta">frontend</span></div>
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>PostgreSQL / MySQL</span><span class="svc-meta">dados</span></div>
+        <div class="svc-row"><span class="svc-name"><span class="svc-dot"></span>Docker / Git</span><span class="svc-meta">infra</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="sec-label">// linguagens e ferramentas</div>
+    <div class="sec-title">O que eu uso no dia a dia</div>
+    <div class="stack-grid">
+      <div class="stack-item"><span class="name">PHP / Laravel</span><span class="cat">backend</span><div class="lvl"><div class="lvl-fill" style="width:90%"></div></div></div>
+      <div class="stack-item"><span class="name">C# / .NET</span><span class="cat">backend</span><div class="lvl"><div class="lvl-fill" style="width:80%"></div></div></div>
+      <div class="stack-item"><span class="name">Python / FastAPI</span><span class="cat">backend</span><div class="lvl"><div class="lvl-fill" style="width:75%"></div></div></div>
+      <div class="stack-item"><span class="name">React / Next.js</span><span class="cat">frontend</span><div class="lvl"><div class="lvl-fill" style="width:85%"></div></div></div>
+      <div class="stack-item"><span class="name">Angular</span><span class="cat">frontend</span><div class="lvl"><div class="lvl-fill" style="width:65%"></div></div></div>
+      <div class="stack-item"><span class="name">TypeScript / JS</span><span class="cat">linguagem</span><div class="lvl"><div class="lvl-fill" style="width:85%"></div></div></div>
+      <div class="stack-item"><span class="name">PostgreSQL / MySQL</span><span class="cat">dados</span><div class="lvl"><div class="lvl-fill" style="width:80%"></div></div></div>
+      <div class="stack-item"><span class="name">Docker</span><span class="cat">infra</span><div class="lvl"><div class="lvl-fill" style="width:80%"></div></div></div>
+      <div class="stack-item"><span class="name">Git</span><span class="cat">infra</span><div class="lvl"><div class="lvl-fill" style="width:90%"></div></div></div>
+      <div class="stack-item"><span class="name">GeoNetwork / dados geoespaciais</span><span class="cat">infra</span><div class="lvl"><div class="lvl-fill" style="width:70%"></div></div></div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="sec-label">// trabalhos</div>
+    <div class="sec-title">Projetos</div>
+    <div class="proj-list">
+
+      <div class="proj">
+        <div class="proj-tag">pessoal</div>
+        <div>
+          <h3>SGF — Sistema de Gestão de Frotas</h3>
+          <p>Plataforma para controle de frota: veículos, manutenções e operação, construída do zero e em uso em produção. É o projeto que mais me orgulha até aqui.</p>
+          <div class="proj-stack"><span class="chip">PHP</span><span class="chip">Laravel</span><span class="chip">PostgreSQL</span></div>
+        </div>
+        <div>
+          <div class="proj-status">em produção</div>
+          <a class="proj-link" href="https://github.com/hg413/Gestao-de-Frotas" target="_blank">ver código →</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-tag amber">SEI / COINF</div>
+        <div>
+          <h3>Migração GeoNetwork 3.12 → 4.x</h3>
+          <p>Migração de um catálogo de metadados geoespaciais legado para uma instância isolada via Docker, incluindo correção de indexação espacial e importação do perfil brasileiro de metadados (MGB 2.0).</p>
+          <div class="proj-stack"><span class="chip">GeoNetwork</span><span class="chip">Docker</span><span class="chip">Oracle Linux</span></div>
+        </div>
+        <div class="proj-status dev">em andamento</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-tag amber">SEI / COINF</div>
+        <div>
+          <h3>Lentes Livres 2026</h3>
+          <p>Site institucional do evento Lentes Livres da SEI, usado também como vitrine do meu trabalho em propostas para clientes freelance.</p>
+          <div class="proj-stack"><span class="chip">Web</span><span class="chip">CMS</span></div>
+        </div>
+        <div>
+          <div class="proj-status">entregue</div>
+          <a class="proj-link" href="https://lenteslivres.sei.ba.gov.br/2026/index.php" target="_blank">ver site →</a>
+        </div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-tag amber">SEI / COINF</div>
+        <div>
+          <h3>X EBEST 2026</h3>
+          <p>Site institucional do evento EBEST da SEI, mais um projeto que apresento como referência do meu trabalho.</p>
+          <div class="proj-stack"><span class="chip">Web</span><span class="chip">CMS</span></div>
+        </div>
+        <div>
+          <div class="proj-status">entregue</div>
+          <a class="proj-link" href="https://ebest.sei.ba.gov.br/2026/index.php" target="_blank">ver site →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contato">
+    <div class="contact-box">
+      <h2>Bora construir algo?</h2>
+      <p>Aberto a freelas, vagas e parcerias — inclusive remoto fora do Brasil.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:Bruno.lima.ti4@gmail.com">enviar e-mail</a>
+        <a class="btn btn-ghost" href="https://wa.me/5571988022361" target="_blank">whatsapp</a>
+        <a class="btn btn-ghost" href="https://github.com/hg413" target="_blank">github</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/brunolima-dev/" target="_blank">linkedin</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>dias d'ávila, bahia, br</span>
+      <span>build 2026.06</span>
+    </div>
+  </footer>
+
+</main>
+
+</body>
+</html>
