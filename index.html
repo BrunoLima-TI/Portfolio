@@ -172,6 +172,22 @@
   .contact-box h2{font-size:24px; margin-bottom:10px;}
   .contact-box p{color:var(--muted); font-size:15px; margin-bottom:26px;}
   .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  .contact-info{
+    margin-top:30px; padding-top:26px; border-top:1px solid var(--line);
+    display:flex; flex-direction:column; gap:10px; max-width:380px; margin-left:auto; margin-right:auto;
+  }
+  .contact-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    font-size:13.5px;
+  }
+  .contact-k{
+    font-family:'JetBrains Mono', monospace; font-size:11px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .contact-row a{
+    color:var(--teal); text-decoration:none; font-family:'JetBrains Mono', monospace; font-size:12.5px;
+  }
+  .contact-row a:hover{color:var(--amber);}
   .foot-bottom{
     margin-top:36px; display:flex; justify-content:space-between; font-size:12px; color:var(--muted);
     font-family:'JetBrains Mono', monospace; flex-wrap:wrap; gap:10px;
@@ -182,6 +198,7 @@
     .stack-grid{grid-template-columns:repeat(2,1fr);}
     .proj{grid-template-columns:1fr; gap:10px;}
     .proj-status{justify-content:flex-start;}
+    .contact-row{flex-direction:column; align-items:flex-start; gap:2px;}
     h1{font-size:32px;}
     .navlinks{display:none;}
   }
@@ -209,7 +226,7 @@
       <h1>Construo sistemas que <span class="accent">ficam de pé</span> em produção.</h1>
       <p class="lead">Desenvolvedor full stack e estudante de Sistemas de Informação. Trabalho com aplicações web, integrações e infraestrutura — do front-end ao Docker que mantém tudo rodando.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#projetos">ver projetos →</a>
+        <a class="btn btn-primary" href="https://github.com/BrunoLima-TI?tab=repositories" target="_blank">ver projetos →</a>
         <a class="btn btn-ghost" href="#contato">falar comigo</a>
       </div>
     </div>
@@ -261,7 +278,7 @@
         </div>
         <div>
           <div class="proj-status">em produção</div>
-          <a class="proj-link" href="https://github.com/hg413/Gestao-de-Frotas" target="_blank">ver código →</a>
+          <a class="proj-link" href="https://github.com/BrunoLima-TI/Gestao-de-Frotas" target="_blank">ver código →</a>
         </div>
       </div>
 
@@ -311,8 +328,14 @@
       <div class="contact-links">
         <a class="btn btn-primary" href="mailto:Bruno.lima.ti4@gmail.com">enviar e-mail</a>
         <a class="btn btn-ghost" href="https://wa.me/5571988022361" target="_blank">whatsapp</a>
-        <a class="btn btn-ghost" href="https://github.com/hg413" target="_blank">github</a>
+        <a class="btn btn-ghost" href="https://github.com/BrunoLima-TI" target="_blank">github</a>
         <a class="btn btn-ghost" href="https://www.linkedin.com/in/brunolima-dev/" target="_blank">linkedin</a>
+      </div>
+      <div class="contact-info">
+        <div class="contact-row"><span class="contact-k">e-mail</span><a href="mailto:Bruno.lima.ti4@gmail.com">Bruno.lima.ti4@gmail.com</a></div>
+        <div class="contact-row"><span class="contact-k">whatsapp</span><a href="https://wa.me/5571988022361" target="_blank">+55 71 9 8802-2361</a></div>
+        <div class="contact-row"><span class="contact-k">linkedin</span><a href="https://www.linkedin.com/in/brunolima-dev/" target="_blank">linkedin.com/in/brunolima-dev</a></div>
+        <div class="contact-row"><span class="contact-k">github</span><a href="https://github.com/BrunoLima-TI" target="_blank">github.com/BrunoLima-TI</a></div>
       </div>
     </div>
     <div class="foot-bottom">
